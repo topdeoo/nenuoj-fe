@@ -22,8 +22,10 @@ const route = useRoute();
 
 <style>
 .container {
-  height: 100%;
   display: block;
-  width: 1630px;
+  height: 100vh;
+  overflow-y: scroll;
+  min-width: 100vw;
+  margin: 0 auto;
 }
 </style>

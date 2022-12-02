@@ -3,7 +3,7 @@ import { useI18n } from "vue-i18n";
 import { timePretty } from "@/util/formate";
 import { Card } from "view-ui-plus";
 import { useRoute, useRouter } from "vue-router";
-import { toRef } from "vue";
+import { ref } from "vue";
 const { t } = useI18n();
 
 const route = useRoute();
@@ -16,9 +16,9 @@ const reload = (payload = {}) => {
   });
 };
 
-const list = toRef([
+const list = ref([
   {
-    id: 0,
+    nid: 0,
     title: "Hello World",
     create: "2021-08-01 00:00:00",
   },
@@ -53,4 +53,30 @@ const list = toRef([
   </div>
 </template>
 
-<style lang="stylus"></style>
+<style lang="stylus">
+.home-wrap
+  margin: 0 10%
+  .news
+    font-size: 40px
+    padding-bottom: 10px
+  .content
+    padding-left: 20px
+    padding-bottom: 20px
+    margin-bottom: 20px
+    border-bottom: 1px solid #dfd8d8
+  .ivu-card
+    margin-bottom: 20px
+    .ivu-icon-md-chatbubbles
+      font-size: 24px
+      margin-left: 30%
+      // color: alpha($primary-color, 0.9)
+      color: var(--oj-primary-color)
+      opacity: 0.85
+    p
+      margin-top: 10px
+    .ivu-icon-md-close-circle
+      opacity: 0.85
+      font-size: 1.5rem
+      // color: #c3c2c2
+      cursor: pointer
+</style>

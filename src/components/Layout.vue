@@ -144,18 +144,10 @@ export default {
               </DropdownMenu>
             </template>
           </Dropdown>
-          <!-- <Dropdown @on-click="langSelected">
-            <Button type="text">
-              <span>({{ t("oj.human_language") }})</span>
-              <img src="../assets/i18n.svg" alt="" style="height: 1.2em" />
-            </Button>
-            <template #list>
-              <DropdownMenu>
-                <DropdownItem name="en-US"> English </DropdownItem>
-                <DropdownItem name="zh-CN"> 简中 </DropdownItem>
-              </DropdownMenu>
-            </template>
-          </Dropdown> -->
+          <Button v-model="theme">
+            <Icon type="ios-sunny" label="light" v-if="theme === 'light'" />
+            <Icon v-else type="ios-moon" label="dark" />
+          </Button>
         </div>
       </Header>
       <Content
@@ -189,6 +181,7 @@ export default {
   overflow: hidden
   .ivu-layout-header
     display: flex
+    position: fixed
     justify-content: space-between
     background: #fff
     padding: 2px 0px 0px 0px
@@ -209,12 +202,11 @@ export default {
       margin-bottom: 6px
   .layout-footer-center
     text-align: center
+    bottom: 0
     p
       margin-bottom: 8px
   .i18n::before
     content: url('../assets/i18n.svg')
-  width: 100%
-  height: 870px
   .ivu-layout
     height: 100%
 </style>
