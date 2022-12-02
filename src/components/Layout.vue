@@ -213,4 +213,8 @@ export default {
       margin-bottom: 8px
   .i18n::before
     content: url('../assets/i18n.svg')
+  width: 100%
+  height: 870px
+  .ivu-layout
+    height: 100%
 </style>

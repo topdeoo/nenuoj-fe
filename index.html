@@ -8,22 +8,28 @@
 </head>
 
 <body>
-    <div id="app" class="index">
+    <div id="app">
     </div>
 
     <script type="module" src="/src/main.ts"></script>
 </body>
+
 <style>
+    html,
     body {
         height: 100%;
+        width: 100%;
+        border: hidden;
+        overflow: hidden;
+        display: block;
     }
 
-    .index {
-        padding: 0px;
-        margin: 0px;
+    #app {
+        margin: 0;
+        padding: 0;
+        width: 1780px;
         height: 100%;
-        width: 100%;
-        position: absolute;
+        display: block;
     }
 </style>
 
