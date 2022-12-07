@@ -1,7 +1,7 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import { useRoute, useRouter } from "vue-router";
-import { inject } from "vue";
+import { inject, ref, computed } from "vue";
 import { useI18n } from "vue-i18n";
 import Dialog from "./LoginAndRegister";
 import { useSessionStore } from "@/store/modules/session";
@@ -11,20 +11,21 @@ import { useHumanLanguage } from "@/util/helper";
 import { Icon, MenuItem } from "view-ui-plus";
 
 const rootStore = useRootStore();
-// const sessionStore = useSessionStore();
 const route = useRoute();
 const router = useRouter();
-// const $Message = inject("$Message");
-// const { toggleLoginState, logout } = sessionStore;
-const { currentTime } = $(storeToRefs(rootStore));
-// const { profile, isAdmin, isLogined } = $(storeToRefs(sessionStore));
+const $Message = inject("$Message");
+const { currentTime } = storeToRefs(rootStore);
 
-const active = $computed(() => route.name);
+let theme = ref("light");
+
+const active = computed(() => route.name);
 const { t, locale } = useI18n();
-// let selectedLang = $(useHumanLanguage());
-// locale.value = selectedLang;
+let selectedLang = useHumanLanguage();
+locale.value = selectedLang;
+const sessionStore = useSessionStore();
+const { toggleLoginState, logout } = sessionStore;
+const { profile, isAdmin, isLogined } = storeToRefs(sessionStore);
 
-// const login = toggleLoginState;
 // possible bug that e is not catched in #catch
 const routerTo = (name) => {
   if (route.name !== name) {
@@ -32,41 +33,41 @@ const routerTo = (name) => {
   }
 };
 
-// function profileAction(name) {
-//   if (name === "logout") {
-//     logout().then(() => $Message.info("bye bye!"));
-//   } else if (name === "profile") {
-//     router.push({ name: "userInfo", params: { uid: profile.uid } });
-//   }
-// }
+const login = toggleLoginState;
 
-// function langSelected(lang) {
-//   locale.value = selectedLang = lang;
-// }
+function langSelected(lang) {
+  locale.value = selectedLang = lang;
+}
+
+function profileAction(name) {
+  if (name === "logout") {
+    logout().then(() => $Message.info("bye bye!"));
+  } else if (name === "profile") {
+    router.push({ name: "userInfo", params: { username: profile.value.username } });
+  }
+}
+
+function themeSelect() {
+  if (theme.value === "light") {
+    theme.value = "dark";
+  } else {
+    theme.value = "light";
+  }
+}
 </script>
 
 <script>
-// Must be renamed; otherwise, it will be confused with Layout.vue in 'view'.
 export default {
   name: "OjLayout",
-  data() {
-    return {
-      theme: "light",
-    };
-  },
 };
 </script>
 
 <template>
   <div class="nav-wrap">
+    <!-- TODO 切换日间模式与夜间模式 -->
     <Layout>
       <Header :style="{ position: 'fixed', width: '100%', 'z-index': 100 }">
-        <Menu
-          :theme="theme"
-          mode="horizontal"
-          :active-name="active"
-          @on-select="routerTo"
-        >
+        <Menu mode="horizontal" :active-name="active" @on-select="routerTo">
           <div class="left">
             <MenuItem name="home">
               <Icon type="ios-home" size="20" />{{ t("oj.home") }}
@@ -115,7 +116,7 @@ export default {
           <Dropdown v-if="isLogined" @on-click="profileAction">
             <a href="javascript:void(0)">
               <Icon type="md-contact" />
-              {{ profile.uid }}
+              {{ profile.username }}
               <Icon type="ios-arrow-down" />
             </a>
             <template #list>
@@ -144,7 +145,7 @@ export default {
               </DropdownMenu>
             </template>
           </Dropdown>
-          <Button v-model="theme">
+          <Button v-model="theme" @click="themeSelect" type="text">
             <Icon type="ios-sunny" label="light" v-if="theme === 'light'" />
             <Icon v-else type="ios-moon" label="dark" />
           </Button>

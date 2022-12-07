@@ -11,15 +11,22 @@ export default {
     contest_list: '比赛',
     discussion_list: '讨论',
     faq: 'FAQ',
+    email: '邮箱',
+    send_code: '发送验证码',
+    email_format_error: '邮箱格式错误',
+    email_missing: '邮箱不能为空',
+    code: '验证码',
+    code_missing: '验证码不能为空',
+    code_length_requirement: '验证码长度为6',
 
     news_list: '通知',
     news_has_been_updated: '通知 "{title}" 已更新！',
 
-    login: '登陆',
+    login: '登录',
     register: '注册',
-    logout: '退出登陆',
+    logout: '退出登录',
     profile: '个人信息',
-    please_login: '请先登陆',
+    please_login: '请先登录',
 
     overview: '概览',
     edit: '修改',
@@ -43,7 +50,7 @@ export default {
     add: '添加',
 
     create_new_thread: '创建新帖',
-    login_to_reply: '登陆后可回复',
+    login_to_reply: '登录后可回复',
     add_a_reply: '添加回复',
 
     solved: '已解决',
@@ -112,7 +119,7 @@ export default {
 
     nick: '昵称',
     username: '用户名',
-    username_description: '用户名用于登陆，不能修改',
+    username_description: '用户名用于登录，不能修改',
     group: '组别',
     motto: '签名',
     school: '学校',

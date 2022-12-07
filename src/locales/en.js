@@ -13,6 +13,13 @@ export default {
     contest_list: 'Contest',
     discussion_list: 'Discuss',
     faq: 'FAQ',
+    email: 'Email',
+    send_code: 'Send Email Code',
+    email_format_error: 'Email format error',
+    email_missing: 'Email cannot be empty',
+    code: 'Verify Code',
+    code_missing: 'Verify Code cannot be empty',
+    code_length_requirement: 'Verify Code length is 6',
 
     // Home
     news_list: 'Announcement',

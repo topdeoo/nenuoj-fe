@@ -1,13 +1,25 @@
 <script setup>
+import only from "only";
 import { useI18n } from "vue-i18n";
 import { timePretty } from "@/util/formate";
 import { Card } from "view-ui-plus";
 import { useRoute, useRouter } from "vue-router";
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { purify } from "@/util/helper";
+import { useSessionStore } from "@/store/modules/session";
+import { storeToRefs } from "pinia";
+
 const { t } = useI18n();
 
 const route = useRoute();
 const router = useRouter();
+
+const query = computed(() => {
+  const opt = only(route.query, "page pageSize");
+  return purify(opt);
+});
+const sessionStore = useSessionStore();
+const { isAdmin, canRemove } = storeToRefs(sessionStore);
 
 const reload = (payload = {}) => {
   router.push({
@@ -20,9 +32,11 @@ const list = ref([
   {
     nid: 0,
     title: "Hello World",
-    create: "2021-08-01 00:00:00",
+    create: 202210211111,
   },
 ]);
+
+console.log(computed(() => isAdmin));
 </script>
 
 <template>
@@ -50,6 +64,13 @@ const list = ref([
         </Col>
       </Row>
     </Card>
+    <Page
+      :model-value="page"
+      :total="sum"
+      :page-size="pageSize"
+      show-elevator
+      @on-change="pageChange"
+    />
   </div>
 </template>
 
